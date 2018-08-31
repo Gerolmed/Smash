@@ -435,8 +435,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minZoom: 7
   maxZoom: 12
-  maxDistanceX: 12
-  maxDistanceY: 12
+  maxDistanceX: 18
+  maxDistanceY: 0
   buffer: 6
 --- !u!81 &464256722
 AudioListener:
