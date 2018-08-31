@@ -9,6 +9,7 @@ public class Character : MonoBehaviour {
     public InputReader.Controller controller;
     public Rigidbody2D rigidbody;
     public float floatHeight;
+    public Animator animator;
 
     [Space(5)]
     [Header("Properties")]
@@ -36,14 +37,18 @@ public class Character : MonoBehaviour {
 
     private int jumpCounter;
 
-
+    //Animation Data
+    private bool moving, move_right, grounded, jumping, double_jumping, prim, sec, rescue_move, fly;
 
 	
 	// Update is called once per frame
 	void Update () {
 
+        resetAnim();
+        grounded = isNearGround();
         Vector2 vel = rigidbody.velocity;
         float value = vel.y > 0 ? gravUp : gravDown;
+        fly = vel.y > 0;
 
         if (isNearGround())
         {
@@ -56,9 +61,11 @@ public class Character : MonoBehaviour {
             vel.Set(vel.x, maxFallSpeed);
         rigidbody.velocity = vel;
 
-        if (InputReader.getInput(controller, InputReader.ControlType.B_BTN) == 1)
+        if (InputReader.getInput(controller, InputReader.ControlType.B_BTN) == 1 && isNearGround())
         {
             secondary();
+            manageAnimation();
+            slow();
             return;
         }
 
@@ -71,6 +78,12 @@ public class Character : MonoBehaviour {
 
         handleButtons();
 
+        if (move_right)
+            animator.gameObject.transform.rotation = new Quaternion(0,0,0,0);
+        else
+            animator.gameObject.transform.rotation = new Quaternion(0, 180, 0, 0);
+
+        manageAnimation();
     }
 
     private void handleButtons()
@@ -136,6 +149,8 @@ public class Character : MonoBehaviour {
 
     public virtual void moveRight()
     {
+        move_right = true;
+        moving = true;
         if (isGrounded())
             rigidbody.velocity = new Vector2(Mathf.Lerp(rigidbody.velocity.x, speed, groundDamp * Time.deltaTime), rigidbody.velocity.y);
         else
@@ -144,6 +159,8 @@ public class Character : MonoBehaviour {
 
     public virtual void moveLeft()
     {
+        move_right = false;
+        moving = true;
         if (isGrounded())
             rigidbody.velocity = new Vector2(Mathf.Lerp(rigidbody.velocity.x, -speed, groundDamp * Time.deltaTime), rigidbody.velocity.y);
         else
@@ -154,24 +171,29 @@ public class Character : MonoBehaviour {
     {
         if (isNearGround())
         {
+            jumping = true;
             jumpCounter++;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpSpeed);
         }
         else if (jumpCounter < maxJumps && !blocked)
         {
+            double_jumping = true;
             jumpCounter++;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, doubleJumpSpeed);
+            manageAnimation();
         }
         //Debug.Log("A");
     }
 
     public virtual void primary()
     {
+        prim = true;
         Debug.Log("X");
     }
 
     public virtual void secondary()
     {
+        sec = true;
         Debug.Log("B");
     }
 
@@ -222,5 +244,83 @@ public class Character : MonoBehaviour {
             return new Vector2(position.x, hit.point.y-size/2);
         }
         return new Vector2(this.transform.position.x, this.transform.position.y + length);
+    }
+
+    public void resetAnim() {
+        moving = false;
+        grounded = false;
+        jumping = false;
+        double_jumping = false;
+        prim = false;
+        sec = false;
+        rescue_move = false;
+        fly = false;
+    }
+    public void manageAnimation() {
+        //Debug.Log(double_jumping);
+        //Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        string clipName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+
+        if (double_jumping)
+        {
+            animator.Play("DoubleJump");
+            return;
+        }
+        if (jumping)
+        {
+            animator.Play("Jump");
+            return;
+        }
+
+        {
+            if (clipName.Equals("Attack"))
+                return;
+            if (clipName.Equals("DoubleJump"))
+                return;
+            if (clipName.Equals("Jump"))
+                return;
+            if (clipName.Equals("Save"))
+                return;
+            if (clipName.Equals("Shield") && sec)
+                return;
+        }
+        if (sec)
+        {
+            animator.Play("Shield");
+            return;
+        }
+        if (rescue_move)
+        {
+            animator.Play("Save");
+            return;
+        }
+        if (prim) {
+            animator.Play("Attack");
+            return;
+        }
+        if (grounded) {
+            if (moving && animator.GetComponent<Animation>() == null)
+            {
+                animator.Play("Run");
+                return;
+            }
+            if (!moving) {
+                animator.Play("Idle");
+                return;
+            }
+        }
+        if (!grounded)
+        {
+            if (fly && !clipName.Equals("Fly"))
+            {
+                animator.Play("Fly");
+                return;
+            }
+            if (!fly && !clipName.Equals("Fall"))
+            {
+                animator.Play("Fall");
+                return;
+            }
+        }
     }
 }
