@@ -10,7 +10,8 @@ public class CameraFollow : MonoBehaviour {
 
     public float minZoom = 7;
     public float maxZoom = 12;
-    public float maxDistance = 12;
+    public float maxDistanceX = 12;
+    public float maxDistanceY = 12;
 
     public float buffer = 3;
 
@@ -28,14 +29,22 @@ public class CameraFollow : MonoBehaviour {
         Vector3 dir = newTarget - transform.position;
 
         this.transform.position += dir * Time.deltaTime;
-        if ((this.transform.position - start).magnitude >= maxDistance)
+        if (Math.Abs((this.transform.position - start).x) >= maxDistanceX)
         {
             Vector3 vec = (this.transform.position - start).normalized;
-            vec *= maxDistance;
+            vec *= maxDistanceX;
+            this.transform.position = vec + start;
+        }
+
+        if (Math.Abs((this.transform.position - start).y) >= maxDistanceY)
+        {
+            Vector3 vec = (this.transform.position - start).normalized;
+            vec *= maxDistanceY;
             this.transform.position = vec + start;
         }
 
         this.GetComponent<Camera>().orthographicSize = Mathf.Lerp(this.GetComponent<Camera>().orthographicSize, nextRatio(), alpha * Time.deltaTime);
+        //this.GetComponent<Camera>().transform.Translate(getMid().x, getMid().y, 0);
     }
 
     private Vector3 getMid()
