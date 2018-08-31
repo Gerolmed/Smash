@@ -19,6 +19,7 @@ public class InputReader {
         switch(controltype) {
             case ControlType.HORIZONTAL: {
                     float input = Input.GetAxis("Horizontal_" + controller.ToString());
+                    //Debug.Log(controller.ToString());
                     if (input > 0.25)
                         return 1;
                     else if (input < -0.25)
@@ -28,6 +29,7 @@ public class InputReader {
             case ControlType.VERTICAL:
                 {
                     float input = Input.GetAxis("Vertical_" + controller.ToString());
+                    //Debug.Log(controller.ToString());
                     if (input > 0.6)
                         return 1;
                     else if (input < -0.6)

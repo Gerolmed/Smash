@@ -89,6 +89,11 @@ public class Character : MonoBehaviour {
                         if(!isNearGround() && !blocked)
                             save();
                     }
+                    if (InputReader.getInput(controller, InputReader.ControlType.VERTICAL) == -1)
+                    {
+                        if (isNearGround())
+                            down();
+                    }
                     else
                     {
                         jump();
@@ -179,6 +184,16 @@ public class Character : MonoBehaviour {
         Debug.Log("V");
     }
 
+    public virtual void down()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, rayLength, 1 << LayerHelper.getLayer(LayerHelper.Layer.GOUND_NO_COLLISION));
+        if (hit.collider != null)
+        {
+            OneWayPlatform oneWayPlatForm = hit.collider.gameObject.GetComponent<OneWayPlatform>();
+            oneWayPlatForm.unblock(this.name, 0.1f);
+        }
+    }
+
     public bool isGrounded()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, rayLength, 1 << LayerHelper.getLayer(LayerHelper.Layer.GROUND));
@@ -191,7 +206,7 @@ public class Character : MonoBehaviour {
 
     public bool isNearGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, rayLengthExtended, 1 << LayerHelper.getLayer(LayerHelper.Layer.GROUND));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, rayLengthExtended, LayerHelper.getLayers(new LayerHelper.Layer[] { LayerHelper.Layer.GROUND, LayerHelper.Layer.GOUND_NO_COLLISION }));
         if (hit.collider != null)
         {
             return true;
