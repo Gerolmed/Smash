@@ -6,7 +6,7 @@ public class LayerHelper {
 
 	public enum Layer
     {
-        GROUND, PLAYER1, PLAYER2, PLAYER3, PLAYER4, PLAYER1BLOCK, PLAYER2BLOCK, PLAYER3BLOCK, PLAYER4BLOCK, GOUND_NO_COLLISION
+        GROUND, PLAYER1, PLAYER2, PLAYER3, PLAYER4, PLAYER1BLOCK, PLAYER2BLOCK, PLAYER3BLOCK, PLAYER4BLOCK, GOUND_NO_COLLISION, HITABLE
     }
 
     public static int getLayer(Layer layer)
@@ -23,6 +23,7 @@ public class LayerHelper {
             case Layer.PLAYER3BLOCK: return 15;
             case Layer.PLAYER4BLOCK: return 16;
             case Layer.GOUND_NO_COLLISION: return 17;
+            case Layer.HITABLE: return 18;
         }
         return 0;
     }

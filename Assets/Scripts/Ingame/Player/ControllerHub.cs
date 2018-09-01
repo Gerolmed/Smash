@@ -54,4 +54,9 @@ public class ControllerHub : MonoBehaviour {
         }
         return array;
     }
+
+    public int controllerCount()
+    {
+        return a.Count;
+    }
 }

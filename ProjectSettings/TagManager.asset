@@ -23,7 +23,7 @@ TagManager:
   - Player3Block
   - Player4Block
   - GroundNoCollision
-  - 
+  - Hitable
   - 
   - 
   - 

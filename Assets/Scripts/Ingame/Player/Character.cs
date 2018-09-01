@@ -10,6 +10,7 @@ public class Character : MonoBehaviour {
     public Rigidbody2D rigidbody;
     public float floatHeight;
     public Animator animator;
+    public HealthManager healthManager;
 
     [Space(5)]
     [Header("Properties")]
@@ -28,7 +29,10 @@ public class Character : MonoBehaviour {
     public int maxJumps = 2;
     public int saveDistance = 6;
     public float size = 2;
+    public float attackUpdateCooldown = 0.5f;
+    public float attackRange = 3;
 
+    private float attackUpdate;
     private bool cooldownJumpInput;
     private float timerJumpInput;
 
@@ -45,6 +49,23 @@ public class Character : MonoBehaviour {
 	void Update () {
 
         resetAnim();
+
+        attackUpdate -= Time.deltaTime;
+        if (attackUpdate < 0)
+            attackUpdate = 0;
+
+        if (InputReader.getInput(controller, InputReader.ControlType.X_BTN) == 1)
+        {
+            if (isNearGround())
+            {
+                a_ground();
+            }
+            else
+            {
+                //TODO: a_air();
+            }
+        }
+
         grounded = isNearGround();
         Vector2 vel = rigidbody.velocity;
         float value = vel.y > 0 ? gravUp : gravDown;
@@ -79,7 +100,7 @@ public class Character : MonoBehaviour {
         handleButtons();
 
         if (move_right)
-            animator.gameObject.transform.rotation = new Quaternion(0,0,0,0);
+            animator.gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
         else
             animator.gameObject.transform.rotation = new Quaternion(0, 180, 0, 0);
 
@@ -185,10 +206,23 @@ public class Character : MonoBehaviour {
         //Debug.Log("A");
     }
 
-    public virtual void primary()
+    public virtual bool a_ground()
     {
-        prim = true;
-        Debug.Log("X");
+        if (attackUpdate == 0)
+        {
+            prim = true;
+            Debug.Log("Arrrrtttttttacke");
+            attackUpdate = attackUpdateCooldown;
+            Vector2 dir = new Vector2(animator.gameObject.transform.rotation.y == 0 ? 1 : -1, 0 );
+            RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, dir, attackRange, 1 << LayerHelper.getLayer(LayerHelper.Layer.HITABLE));
+            for (int i = 0; i < hit.Length; i++)
+            {
+                if (hit[i].collider.gameObject != this.transform.GetChild(0) && hit[i].collider.gameObject.name.StartsWith("Player"))
+                    hit[i].collider.gameObject.transform.GetComponentInParent<HealthManager>().applyDamage((hit[i].collider.gameObject.transform.position - this.transform.position).normalized, 10);
+            }
+            return true;
+        }
+        return false;
     }
 
     public virtual void secondary()

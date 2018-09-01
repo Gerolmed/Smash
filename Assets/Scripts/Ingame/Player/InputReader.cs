@@ -32,28 +32,53 @@ public class InputReader {
         PlayerIndex testPlayerIndex = (PlayerIndex)0;
         GamePadState state = GamePad.GetState(testPlayerIndex);
 
+        bool noConnect = false;
+
         switch (controller)
         {
             case Controller.ONE: {
+                    if (ControllerHub.Instance.controllerCount() < 1)
+                    {
+                        noConnect = true;
+                        break;
+                    }
                     state = GamePad.GetState(ControllerHub.Instance.GetControls()[0]);
                     break;
                 }
             case Controller.TWO:
                 {
+                    if (ControllerHub.Instance.controllerCount() < 2)
+                    {
+                        noConnect = true;
+                        break;
+                    }
                     state = GamePad.GetState(ControllerHub.Instance.GetControls()[1]);
                     break;
                 }
             case Controller.THREE:
                 {
+                    if (ControllerHub.Instance.controllerCount() < 3)
+                    {
+                        noConnect = true;
+                        break;
+                    }
                     state = GamePad.GetState(ControllerHub.Instance.GetControls()[2]);
                     break;
                 }
             case Controller.FOUR:
                 {
+                    if (ControllerHub.Instance.controllerCount() < 4)
+                    {
+                        noConnect = true;
+                        break;
+                    }
                     state = GamePad.GetState(ControllerHub.Instance.GetControls()[3]);
                     break;
                 }
         }
+
+        if (noConnect)
+            return 0;
 
         switch(controltype)
         {
