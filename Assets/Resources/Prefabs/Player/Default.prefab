@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4869338991867266}
+  - component: {fileID: 61979546958463410}
   m_Layer: 18
   m_Name: HitBox
   m_TagString: Untagged
@@ -55,7 +56,7 @@ GameObject:
   - component: {fileID: 4674810912604794}
   - component: {fileID: 212992841511817984}
   - component: {fileID: 95690704671500236}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Texture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +74,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4684678936598928}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4684678936598928
 Transform:
@@ -81,12 +82,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186642319754236}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.85, y: 10, z: -0.029296875}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.02, y: 10, z: -0.029296875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4674810912604794}
   - {fileID: 4869338991867266}
+  - {fileID: 4674810912604794}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,7 +102,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4684678936598928}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50930616364115092
 Rigidbody2D:
@@ -138,6 +139,31 @@ CircleCollider2D:
   m_Offset: {x: 0.013663769, y: -0.04760182}
   serializedVersion: 2
   m_Radius: 0.8618659
+--- !u!61 &61979546958463410
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1006995096455826}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.014033556, y: 0.028054714}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.150782, y: 1.8416243}
+  m_EdgeRadius: 0
 --- !u!95 &95690704671500236
 Animator:
   serializedVersion: 3
@@ -171,7 +197,7 @@ MonoBehaviour:
   rigidbody: {fileID: 50930616364115092}
   floatHeight: 0
   animator: {fileID: 95690704671500236}
-  healthManager: {fileID: 0}
+  healthManager: {fileID: 114644700039164490}
   alpha: 8
   speed: 12
   airSpeed: 8
@@ -188,6 +214,7 @@ MonoBehaviour:
   saveDistance: 10
   size: 2
   attackUpdateCooldown: 0.2
+  attackRange: 3
 --- !u!114 &114644700039164490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,7 +227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  baseMultiplier: 0.1
+  baseMultiplier: 3
+  startboost: 20
   lives: 10
 --- !u!212 &212992841511817984
 SpriteRenderer:

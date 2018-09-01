@@ -35,6 +35,7 @@ public class Character : MonoBehaviour {
     private float attackUpdate;
     private bool cooldownJumpInput;
     private float timerJumpInput;
+    private float blockCooldown;
 
     private bool aRelease;
     private bool blocked;
@@ -54,6 +55,22 @@ public class Character : MonoBehaviour {
         if (attackUpdate < 0)
             attackUpdate = 0;
 
+        blockCooldown -= Time.deltaTime;
+        if (blockCooldown < 0)
+            blockCooldown = 0;
+
+
+        if (GetComponent<HealthManager>().shieldActivated)
+            return;
+
+        if (InputReader.getInput(controller, InputReader.ControlType.B_BTN) == 1 && isNearGround() && secondary())
+        {
+            manageAnimation();
+            rigidbody.velocity = new Vector2();
+            return;
+        }
+
+
         if (InputReader.getInput(controller, InputReader.ControlType.X_BTN) == 1)
         {
             if (isNearGround())
@@ -62,7 +79,7 @@ public class Character : MonoBehaviour {
             }
             else
             {
-                //TODO: a_air();
+                a_air();
             }
         }
 
@@ -82,13 +99,7 @@ public class Character : MonoBehaviour {
             vel.Set(vel.x, maxFallSpeed);
         rigidbody.velocity = vel;
 
-        if (InputReader.getInput(controller, InputReader.ControlType.B_BTN) == 1 && isNearGround())
-        {
-            secondary();
-            manageAnimation();
-            slow();
-            return;
-        }
+        
 
         if (InputReader.getInput(controller, InputReader.ControlType.HORIZONTAL) == 1)
             moveRight();
@@ -211,24 +222,63 @@ public class Character : MonoBehaviour {
         if (attackUpdate == 0)
         {
             prim = true;
-            Debug.Log("Arrrrtttttttacke");
             attackUpdate = attackUpdateCooldown;
-            Vector2 dir = new Vector2(animator.gameObject.transform.rotation.y == 0 ? 1 : -1, 0 );
+            Vector2 dir = new Vector2(animator.gameObject.transform.rotation.y == 0 ? 1 : -1, 0);
             RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, dir, attackRange, 1 << LayerHelper.getLayer(LayerHelper.Layer.HITABLE));
             for (int i = 0; i < hit.Length; i++)
             {
-                if (hit[i].collider.gameObject != this.transform.GetChild(0) && hit[i].collider.gameObject.name.StartsWith("Player"))
-                    hit[i].collider.gameObject.transform.GetComponentInParent<HealthManager>().applyDamage((hit[i].collider.gameObject.transform.position - this.transform.position).normalized, 10);
+                GameObject gameObject = hit[i].collider.gameObject;
+                if (gameObject.transform.parent.gameObject != this.gameObject && gameObject.transform.parent.name.StartsWith("Player"))
+                {
+                    gameObject.transform.GetComponentInParent<HealthManager>().applyDamageFixedY(this.transform.position + new Vector3(0, -0.5f, 0), 2, 20);
+                    gameObject.transform.GetComponentInParent<HealthManager>().stun(0.5f);
+                }
             }
+            return true;
+      
+        }
+        return false;
+    }
+
+    public virtual bool a_air()
+    {
+        if (attackUpdate == 0 && !blocked)
+        {
+            prim = true;
+            attackUpdate = attackUpdateCooldown;
+            Vector2 dir = new Vector2(animator.gameObject.transform.rotation.y == 0 ? 1 : -1, 0);
+            RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, dir, attackRange, 1 << LayerHelper.getLayer(LayerHelper.Layer.HITABLE));
+            for (int i = 0; i < hit.Length; i++)
+            {
+                GameObject gameObject = hit[i].collider.gameObject;
+                if (gameObject.transform.parent.gameObject != this.gameObject && gameObject.transform.parent.name.StartsWith("Player"))
+                {
+                    gameObject.transform.GetComponentInParent<HealthManager>().applyDamageFixedY(this.transform.position + new Vector3(0, -0.5f, 0), 2, 20);
+                    gameObject.transform.GetComponentInParent<HealthManager>().stun(0.5f);
+                }
+            }
+            return true;
+
+        }
+        return false;
+    }
+
+    public virtual bool secondary()
+    {
+        if (blockCooldown == 0) {
+            sec = true;
+            blockCooldown = 4;
+            StartCoroutine(StartBlock());
             return true;
         }
         return false;
     }
 
-    public virtual void secondary()
+    public IEnumerator StartBlock()
     {
-        sec = true;
-        Debug.Log("B");
+        GetComponent<HealthManager>().shieldActivated = true;
+        yield return new WaitForSeconds(1);
+        GetComponent<HealthManager>().shieldActivated = false;
     }
 
     public virtual void save()
