@@ -285,7 +285,7 @@ public class Character : MonoBehaviour {
     {
         Vector2 vector = findFreeLocation(this.transform.position, saveDistance);
         this.transform.position = this.transform.position = new Vector3(vector.x, vector.y, 0);
-        rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+        rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpSpeed);
         blocked = true;
         Debug.Log("V");
     }

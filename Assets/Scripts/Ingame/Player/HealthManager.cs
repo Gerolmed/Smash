@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,5 +48,23 @@ public class HealthManager : MonoBehaviour {
     private float getMultiplier()
     {
         return baseMultiplier * (damage + startboost);
+    }
+
+    internal void die()
+    {
+        this.gameObject.SetActive(false);
+        lives--;
+        if (lives <= 0) {
+            defeat();
+            return;
+        }
+        SpawnScript.Instance.spawnObject(this.gameObject, true);
+        Debug.Log("Respawn");
+
+    }
+
+    private void defeat()
+    {
+        Debug.Log("Defeat");
     }
 }
