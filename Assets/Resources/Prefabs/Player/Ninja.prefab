@@ -195,9 +195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  baseMultiplier: 3
+  baseMultiplier: 5
   startboost: 20
-  lives: 10
+  lives: 3
   shieldActivated: 0
   stunned: 0
 --- !u!114 &114909840839765120
@@ -220,7 +220,7 @@ MonoBehaviour:
   speed: 12
   airSpeed: 8
   jumpSpeed: 20
-  doubleJumpSpeed: 26
+  doubleJumpSpeed: 22
   maxFallSpeed: -18
   rayLength: 1
   rayLengthExtended: 1.05
