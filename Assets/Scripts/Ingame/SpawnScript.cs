@@ -15,13 +15,17 @@ public class SpawnScript : MonoBehaviour {
     }
     private void Start()
     {
-        spawnObject(GameObject.Find("Player1"), false);
+        spawnObject(GameObject.Find("System").GetComponent<PlayerReference>().player1, false);
         spawnObject(GameObject.Find("Player2"), false);
         spawnObject(GameObject.Find("Player3"), false);
         spawnObject(GameObject.Find("Player4"), false);
     }
 
     public void spawnObject(GameObject gameObject, bool rndPos) {
+        if (gameObject == null) {
+            Debug.Log("No player found!");
+            return;
+        }
         StartCoroutine(spawn(gameObject, rndPos));
     }
 
