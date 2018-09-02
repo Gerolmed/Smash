@@ -12,7 +12,6 @@ public class GameData {
 
     public GameData() {
         Instance = this;
-        
     }
 
 }

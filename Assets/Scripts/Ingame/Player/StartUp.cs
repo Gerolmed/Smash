@@ -7,7 +7,15 @@ public class StartUp : MonoBehaviour {
 
     public Transform[] spawns = new Transform[4];
 
+    public PlayerData[] playerData;
 	void Awake () {
+        {
+            GameData gameData = new GameData();
+            gameData.player1 = playerData[0];
+            gameData.player2 = playerData[1];
+            gameData.player3 = playerData[2];
+            gameData.player4 = playerData[3];
+        }
         Instance = this;
 
         if (GameData.Instance == null) {
