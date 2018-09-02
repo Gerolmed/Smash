@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Holder))]
 public class Character : MonoBehaviour {
 
     [Header("Connections")]
@@ -29,6 +30,7 @@ public class Character : MonoBehaviour {
     public int maxJumps = 2;
     public int saveDistance = 6;
     public float size = 2;
+    public float width = 2;
     public float attackUpdateCooldown = 0.5f;
     public float attackRange = 3;
 
@@ -40,14 +42,19 @@ public class Character : MonoBehaviour {
     private bool aRelease;
     private bool blocked;
 
-    private int jumpCounter;
+    protected int jumpCounter;
 
     //Animation Data
-    private bool moving, move_right, grounded, jumping, double_jumping, prim, sec, rescue_move, fly;
+    private bool moving, move_right, grounded, jumping, double_jumping, prim, prim_air, sec, rescue_move, fly;
 
 	
+    void Awake()
+    {
+        GetComponent<Holder>().character = this;
+    }
+
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 
         resetAnim();
 
@@ -244,7 +251,7 @@ public class Character : MonoBehaviour {
     {
         if (attackUpdate == 0 && !blocked)
         {
-            prim = true;
+            prim_air = true;
             attackUpdate = attackUpdateCooldown;
             Vector2 dir = new Vector2(animator.gameObject.transform.rotation.y == 0 ? 1 : -1, 0);
             RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, dir, attackRange, 1 << LayerHelper.getLayer(LayerHelper.Layer.HITABLE));
@@ -336,6 +343,7 @@ public class Character : MonoBehaviour {
         jumping = false;
         double_jumping = false;
         prim = false;
+        prim_air = false;
         sec = false;
         rescue_move = false;
         fly = false;
@@ -359,6 +367,8 @@ public class Character : MonoBehaviour {
         {
             if (clipName.Equals("Attack"))
                 return;
+            if (clipName.Equals("AttackAir"))
+                return;
             if (clipName.Equals("DoubleJump"))
                 return;
             if (clipName.Equals("Jump"))
@@ -376,6 +386,11 @@ public class Character : MonoBehaviour {
         if (rescue_move)
         {
             animator.Play("Save");
+            return;
+        }
+        if (prim_air)
+        {
+            animator.Play("AttackAir");
             return;
         }
         if (prim) {
