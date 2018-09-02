@@ -11,14 +11,14 @@ public class NinjaCharacter : Character {
 
 	// Update is called once per frame
 	protected override void doUpdate () {
-        if (isNearWall(width / 2, animator.gameObject.transform.rotation.y))
+        if (isNearWall(width / 2, animator.gameObject.transform.rotation.y) && !isNearGround())
         {
             sliding = true;
         }
 
         base.doUpdate();
 
-        if (isNearWall(width / 2, animator.gameObject.transform.rotation.y))
+        if (isNearWall(width / 2, animator.gameObject.transform.rotation.y) && !isNearGround())
         {
             jumpCounter = 0;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, Mathf.Lerp(rigidbody.velocity.y, slideSpeed, slideAlpha));
