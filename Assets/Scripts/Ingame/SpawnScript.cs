@@ -16,9 +16,9 @@ public class SpawnScript : MonoBehaviour {
     private void Start()
     {
         spawnObject(GameObject.Find("System").GetComponent<PlayerReference>().player1, false);
-        spawnObject(GameObject.Find("Player2"), false);
-        spawnObject(GameObject.Find("Player3"), false);
-        spawnObject(GameObject.Find("Player4"), false);
+        spawnObject(GameObject.Find("System").GetComponent<PlayerReference>().player2, false);
+        spawnObject(GameObject.Find("System").GetComponent<PlayerReference>().player3, false);
+        spawnObject(GameObject.Find("System").GetComponent<PlayerReference>().player4, false);
     }
 
     public void spawnObject(GameObject gameObject, bool rndPos) {
