@@ -54,6 +54,7 @@ public class HealthManager : MonoBehaviour {
     {
         this.gameObject.SetActive(false);
         lives--;
+        damage = 0;
         if (lives <= 0) {
             defeat();
             return;
