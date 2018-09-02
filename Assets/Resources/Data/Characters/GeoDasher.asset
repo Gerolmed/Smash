@@ -9,5 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8218685679ef77b489a9ea09efcbb955, type: 3}
-  m_Name: Ninja
+  m_Name: GeoDasher
   m_EditorClassIdentifier: 
+  name: GeoDasher
+  preview: {fileID: 21300088, guid: d8561ffd74ae8a44bafca7d8ee88e651, type: 3}
+  ingameObject: {fileID: 1186642319754236, guid: 0db74bfa90862304ebed5ff344b53967,
+    type: 2}

@@ -7,5 +7,4 @@ public class PlayerData : ScriptableObject {
     public string name;
     public Sprite preview;
     public GameObject ingameObject;
-
 }

@@ -8,9 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8218685679ef77b489a9ea09efcbb955, type: 3}
-  m_Name: GeoDasher
+  m_Script: {fileID: 11500000, guid: d72c7b386540f0d42a8bbebc67dfa322, type: 3}
+  m_Name: NewYork
   m_EditorClassIdentifier: 
-  name: 
-  preview: {fileID: 0}
-  ingameObject: {fileID: 0}
+  name: NewYork
+  screneName: Map_NewYork
