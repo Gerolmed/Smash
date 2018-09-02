@@ -45,7 +45,7 @@ public class Character : MonoBehaviour {
     protected int jumpCounter;
 
     //Animation Data
-    private bool moving, move_right, grounded, jumping, double_jumping, prim, prim_air, sec, rescue_move, fly;
+    protected bool moving, move_right, grounded, jumping, double_jumping, prim, prim_air, sec, rescue_move, fly, sliding;
 
 	
     void Awake()
@@ -58,6 +58,11 @@ public class Character : MonoBehaviour {
 
         resetAnim();
 
+        doUpdate();
+    }
+
+    protected virtual void doUpdate()
+    {
         attackUpdate -= Time.deltaTime;
         if (attackUpdate < 0)
             attackUpdate = 0;
@@ -106,7 +111,7 @@ public class Character : MonoBehaviour {
             vel.Set(vel.x, maxFallSpeed);
         rigidbody.velocity = vel;
 
-        
+
 
         if (InputReader.getInput(controller, InputReader.ControlType.HORIZONTAL) == 1)
             moveRight();
@@ -347,6 +352,7 @@ public class Character : MonoBehaviour {
         sec = false;
         rescue_move = false;
         fly = false;
+        sliding = false;
     }
     public void manageAnimation() {
         //Debug.Log(double_jumping);
@@ -376,6 +382,8 @@ public class Character : MonoBehaviour {
             if (clipName.Equals("Save"))
                 return;
             if (clipName.Equals("Shield") && sec)
+                return;
+            if (clipName.Equals("WallSlide") && sliding)
                 return;
         }
         if (sec)
@@ -410,6 +418,12 @@ public class Character : MonoBehaviour {
         }
         if (!grounded)
         {
+            Debug.Log(sliding);
+            if (sliding && !clipName.Equals("WallSlide"))
+            {
+                animator.Play("WallSlide");
+                return;
+            }
             if (fly && !clipName.Equals("Fly"))
             {
                 animator.Play("Fly");

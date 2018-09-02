@@ -53,10 +53,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4133151374101274}
   - component: {fileID: 50037836646589132}
-  - component: {fileID: 58291930563524524}
   - component: {fileID: 114057412165318172}
   - component: {fileID: 114933268407506528}
   - component: {fileID: 114909840839765120}
+  - component: {fileID: 70603615380541164}
   m_Layer: 9
   m_Name: Ninja
   m_TagString: Untagged
@@ -125,21 +125,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &58291930563524524
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1883366363460670}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.013663769, y: -0.04760182}
-  serializedVersion: 2
-  m_Radius: 0.8618659
 --- !u!61 &61236996427834648
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -165,6 +150,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.150782, y: 1.8416243}
   m_EdgeRadius: 0
+--- !u!70 &70603615380541164
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883366363460670}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.011389732, y: -0.017077088}
+  m_Size: {x: 1.4795475, y: 1.8993938}
+  m_Direction: 0
 --- !u!95 &95199175921707860
 Animator:
   serializedVersion: 3
@@ -235,7 +235,8 @@ MonoBehaviour:
   attackUpdateCooldown: 0.5
   attackRange: 3
   slideSpeed: -5
-  slideAlpha: 3
+  slideAlpha: 0.5
+  pushBack: 25
 --- !u!114 &114933268407506528
 MonoBehaviour:
   m_ObjectHideFlags: 1
