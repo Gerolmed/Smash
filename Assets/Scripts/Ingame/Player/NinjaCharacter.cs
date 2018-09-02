@@ -29,7 +29,7 @@ public class NinjaCharacter : Character {
         base.jump();
         /*if (isNearWall(width / 2, animator.gameObject.transform.rotation.y))
         {
-            rigidbody.velocity = new Vector2(Mathf.Lerp(rigidbody.velocity.y, slideSpeed, slideAlpha), rigidbody.velocity.y);
+            rigidbody.velocity = new Vector2(Mathf.Lerp(rigidbody.velocity.x + pushBack, rigidbody.velocity.x + pushBack, slideAlpha), rigidbody.velocity.y);
         }*/
     }
    
@@ -37,7 +37,7 @@ public class NinjaCharacter : Character {
     {
         if (rotation == 180)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, -rayLengthExtended, LayerHelper.getLayers(new LayerHelper.Layer[] { LayerHelper.Layer.GROUND, LayerHelper.Layer.GOUND_NO_COLLISION }));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, rayLengthExtended, LayerHelper.getLayers(new LayerHelper.Layer[] { LayerHelper.Layer.GROUND, LayerHelper.Layer.GOUND_NO_COLLISION }));
             if (hit.collider != null)
             {
                 return true;
