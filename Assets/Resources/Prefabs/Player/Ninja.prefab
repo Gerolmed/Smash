@@ -212,27 +212,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 0
-  rigidbody: {fileID: 0}
-  floatHeight: 0
-  animator: {fileID: 0}
-  healthManager: {fileID: 0}
-  alpha: 3
-  speed: 3
-  airSpeed: 2
-  jumpSpeed: 4
-  doubleJumpSpeed: 4
-  maxFallSpeed: -20
+  rigidbody: {fileID: 50037836646589132}
+  floatHeight: 2
+  animator: {fileID: 95199175921707860}
+  healthManager: {fileID: 114057412165318172}
+  alpha: 8
+  speed: 12
+  airSpeed: 8
+  jumpSpeed: 20
+  doubleJumpSpeed: 26
+  maxFallSpeed: -18
   rayLength: 1
   rayLengthExtended: 1.05
-  gravUp: 12
-  gravDown: 36
-  airDamp: 3
-  groundDamp: 3
-  maxJumps: 2
-  saveDistance: 6
+  gravUp: 50
+  gravDown: 25
+  airDamp: 5
+  groundDamp: 12
+  maxJumps: 3
+  saveDistance: 0
   size: 2
+  width: 2
   attackUpdateCooldown: 0.5
   attackRange: 3
+  slideSpeed: -5
+  slideAlpha: 3
 --- !u!114 &114933268407506528
 MonoBehaviour:
   m_ObjectHideFlags: 1
