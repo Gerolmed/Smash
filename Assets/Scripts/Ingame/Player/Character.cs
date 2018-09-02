@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Holder))]
 public class Character : MonoBehaviour {
 
     [Header("Connections")]
@@ -29,6 +30,7 @@ public class Character : MonoBehaviour {
     public int maxJumps = 2;
     public int saveDistance = 6;
     public float size = 2;
+    public float width = 2;
     public float attackUpdateCooldown = 0.5f;
     public float attackRange = 3;
 
@@ -40,14 +42,19 @@ public class Character : MonoBehaviour {
     private bool aRelease;
     private bool blocked;
 
-    private int jumpCounter;
+    protected int jumpCounter;
 
     //Animation Data
     private bool moving, move_right, grounded, jumping, double_jumping, prim, prim_air, sec, rescue_move, fly;
 
 	
+    void Awake()
+    {
+        GetComponent<Holder>().character = this;
+    }
+
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 
         resetAnim();
 

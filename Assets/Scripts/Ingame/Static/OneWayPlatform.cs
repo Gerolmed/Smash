@@ -72,7 +72,7 @@ else
 }// ICH BIN EIGENTLICH KEIN KOMMENTAR ICH PUTZ HIER NUR
 
 public bool higher(GameObject player) {
-    return player.transform.position.y - player.GetComponent<Character>().size/2 + 0.3 > transform.position.y;
+    return player.transform.position.y - player.GetComponent<Holder>().character.size/2 + 0.3 > transform.position.y;
 }
 
 internal void unblock(string name, float time)
