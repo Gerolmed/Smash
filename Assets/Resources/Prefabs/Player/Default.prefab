@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984895764744960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.000000014901, z: 1.61e-13}
+  m_LocalPosition: {x: 0, y: 0.000000014901, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4684678936598928}
@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186642319754236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.75, y: 0.23, z: -0.029296875}
+  m_LocalPosition: {x: 12.75, y: 0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4869338991867266}
@@ -226,6 +226,7 @@ MonoBehaviour:
   maxJumps: 2
   saveDistance: 10
   size: 2
+  width: 2
   attackUpdateCooldown: 0.2
   attackRange: 3
 --- !u!114 &114644700039164490
