@@ -39,7 +39,12 @@ public class NinjaCharacter : Character {
             rigidbody.velocity = new Vector2(Mathf.Lerp(rigidbody.velocity.x + pushBack, rigidbody.velocity.x + pushBack, slideAlpha), rigidbody.velocity.y);
         }
     }
-   
+
+    public override bool secondary()
+    {
+        return false;
+    }
+
     public bool isNearWall(float Width, float rotation)
     {
         if (rotation == 1)

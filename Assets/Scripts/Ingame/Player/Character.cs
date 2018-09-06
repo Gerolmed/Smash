@@ -418,7 +418,6 @@ public class Character : MonoBehaviour {
         }
         if (!grounded)
         {
-            Debug.Log(sliding);
             if (sliding && !clipName.Equals("WallSlide"))
             {
                 animator.Play("WallSlide");
