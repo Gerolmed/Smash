@@ -211,6 +211,8 @@ MonoBehaviour:
   floatHeight: 0
   animator: {fileID: 95690704671500236}
   healthManager: {fileID: 114644700039164490}
+  saveParticles: {fileID: 1547096669320914, guid: 0ba6425fa59689c45aed42071933066b,
+    type: 2}
   alpha: 8
   speed: 12
   airSpeed: 8
