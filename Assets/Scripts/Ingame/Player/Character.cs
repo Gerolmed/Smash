@@ -12,6 +12,7 @@ public class Character : MonoBehaviour {
     public float floatHeight;
     public Animator animator;
     public HealthManager healthManager;
+    public GameObject saveParticles;
 
     [Space(5)]
     [Header("Properties")]
@@ -296,9 +297,28 @@ public class Character : MonoBehaviour {
     public virtual void save()
     {
         Vector2 vector = findFreeLocation(this.transform.position, saveDistance);
-        this.transform.position = this.transform.position = new Vector3(vector.x, vector.y, 0);
+        Vector3 origin = this.transform.position;
+        this.transform.position = new Vector3(vector.x, vector.y, 0);
+        Vector3 destination = new Vector3(vector.x, vector.y, 0);
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpSpeed);
         blocked = true;
+
+        //Do particle stuff
+        if(saveParticles != null) {
+
+            GameObject obj = GameObject.Instantiate(saveParticles);
+            Vector3 diff = destination - origin;
+
+            Vector3 position = origin + diff / 2;
+            obj.transform.position = position;
+            ParticleSystem parts = obj.GetComponent<ParticleSystem>();
+            ParticleSystem.ShapeModule shapeModule = parts.shape;
+            Debug.Log(" X: "+ diff.x + " Y: " + diff.y + " Z: " + diff.z + " Mag: "+ diff.magnitude);
+            Debug.Log(" X: " + shapeModule.scale.x + " Y: " + shapeModule.scale.y + " Z: " + shapeModule.scale.z + " Mag: " + shapeModule.scale.magnitude);
+            shapeModule.scale = new Vector3(shapeModule.scale.x, shapeModule.scale.y, diff.magnitude);
+            Debug.Log(" X: " + shapeModule.scale.x + " Y: " + shapeModule.scale.y + " Z: " + shapeModule.scale.z + " Mag: " + shapeModule.scale.magnitude);
+        }
+
         Debug.Log("V");
     }
 
