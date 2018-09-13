@@ -578,10 +578,10 @@ MonoBehaviour:
   - {fileID: 226428566}
   - {fileID: 535566162}
   playerData:
+  - {fileID: 11400000, guid: 30cfc086671efc643afdeabe607ef505, type: 2}
   - {fileID: 11400000, guid: b4ebe366c5e37ad409595026366a9a29, type: 2}
   - {fileID: 11400000, guid: b4ebe366c5e37ad409595026366a9a29, type: 2}
-  - {fileID: 11400000, guid: 30cfc086671efc643afdeabe607ef505, type: 2}
-  - {fileID: 11400000, guid: 30cfc086671efc643afdeabe607ef505, type: 2}
+  - {fileID: 11400000, guid: b4ebe366c5e37ad409595026366a9a29, type: 2}
 --- !u!114 &249446486
 MonoBehaviour:
   m_ObjectHideFlags: 0

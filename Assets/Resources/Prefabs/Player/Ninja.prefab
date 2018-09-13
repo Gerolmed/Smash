@@ -216,6 +216,7 @@ MonoBehaviour:
   floatHeight: 2
   animator: {fileID: 95199175921707860}
   healthManager: {fileID: 114057412165318172}
+  saveParticles: {fileID: 0}
   alpha: 8
   speed: 12
   airSpeed: 8
@@ -236,7 +237,7 @@ MonoBehaviour:
   attackRange: 3
   slideSpeed: -5
   slideAlpha: 0.5
-  pushBack: 25
+  pushBack: 20
 --- !u!114 &114933268407506528
 MonoBehaviour:
   m_ObjectHideFlags: 1
