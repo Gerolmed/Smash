@@ -236,7 +236,7 @@ MonoBehaviour:
   attackUpdateCooldown: 0.5
   attackRange: 3
   slideSpeed: -5
-  slideAlpha: 0.5
+  slideAlpha: 30
   pushBack: 20
 --- !u!114 &114933268407506528
 MonoBehaviour:

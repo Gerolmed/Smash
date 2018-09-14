@@ -21,7 +21,7 @@ public class NinjaCharacter : Character {
         if (isNearWall(width / 2, animator.gameObject.transform.rotation.y) && !isNearGround())
         {
             jumpCounter = 0;
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, Mathf.Lerp(rigidbody.velocity.y, slideSpeed, slideAlpha));
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, Mathf.Lerp(rigidbody.velocity.y, slideSpeed, slideAlpha * Time.deltaTime));
         }
         
     }
